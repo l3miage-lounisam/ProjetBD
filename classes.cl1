@@ -18,12 +18,6 @@ enum Definition {
     vnul
 }
 
-class Station
-    attributes
-        adresse : String
-        definition : Definition
-end
-
 class Bornette
     attributes
         etat : Etat
@@ -36,7 +30,7 @@ class Velo
         puce : String
 end
 
-class Abonne
+class Abonne < Client
     attributes
         nom : String
         prenom : String
@@ -45,32 +39,46 @@ class Abonne
         adresse : String
         dateDebutAb : String
         creditTemps : Integer
-        numeroCB : Integer
-        codeSecret : String
+end
+
+class Station
+    attributes
+        adresse : String
 end
 
 class Modele
     attributes
         nom : String
-        coutHoraire : Real
+        coutHoraire : Float
 end
 
 class Location
     attributes
         dureeLoc : Integer
-        prix : Real
+        prix : Float
 end
 
-class NonAbonne
+class NonAbonne < Client
+end
+
+class Client
     attributes
         numeroCB : Integer
         codeSecret : String
 end
 
-association Possede
-    between
-        Station[1] role station
-        Bornette[0..*] role bornettes
+class Trajet
+    attributes
+        dateDebutTrajet : String
+        dateFinTrajet : String
+        duree : Integer
+        prix : Float
+end
+
+class DefinitionStation
+    attributes
+        heure : Integer
+        defStation : Definition
 end
 
 association EstAccueilliPar
@@ -85,21 +93,51 @@ association APourModele
         Modele[1] role modele
 end
 
+association Possede
+    between
+        Station[1] role station
+        Bornette[0..*] role bornettes
+end
+
+association APourDepart
+    between
+        Station[1] role stationDepart
+        Trajet[0..*] role debutTrajets
+end
+
+association APourArrive
+    between
+        Station[1] role stationArrive
+        Trajet[0..*] role finTrajets
+end
+
+association APourDefinition
+    between
+        Station[1] role station
+        DefinitionStation[0..*] role definitions
+end
+
 association Concerne
     between
         Location[0..1] role locationVelo
-        Velo[1..*] role velos
+        Trajet[1..*] role velos
 end
 
-association EstEffectuePar
+association EstAbonneEffectue
     between
         Location[0..*] role locations
         Abonne[0..1] role abonne
 end
 
-association EstAbonneEffectue
+association EstEffectuePar
     between
         NonAbonne[1] role nonAbonne
         Location[1..*] role locationsNonAbos
+end
+
+association Realise
+    between
+        Trajet[0..*] role trajets
+        Velo[1] role velo
 end
 
