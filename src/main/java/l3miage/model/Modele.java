@@ -1,4 +1,4 @@
-package Projet;
+package l3miage.model;
 
 import javax.persistence.*;
 import java.util.*;

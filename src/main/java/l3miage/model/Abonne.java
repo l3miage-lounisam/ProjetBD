@@ -1,4 +1,4 @@
-package Projet;
+package l3miage.model;
 
 import java.util.*;
 import javax.persistence.*;
@@ -7,6 +7,9 @@ import javax.persistence.*;
  * 
  */
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Abonne.findAll", query = "select a from Abonne a")
+})
 public class Abonne extends Client {
 
 

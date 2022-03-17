@@ -1,7 +1,7 @@
-package Projet;
+package l3miage.model;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.*;
 
 /**
@@ -19,6 +19,7 @@ public class NonAbonne extends Client {
     /**
      * 
      */
+    @ManyToOne
     public List<Location> locationsNonAbos;
 
 
