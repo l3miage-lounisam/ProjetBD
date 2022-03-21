@@ -2,6 +2,7 @@ package l3miage.repository.impl;
 
 
 
+import l3miage.model.DefinitionStation;
 import l3miage.model.Station;
 import l3miage.repository.api.DefinitionStationRepository;
 
@@ -14,23 +15,26 @@ public class DefinitionStationRepositoryImpl extends BaseRepositoryImpl implemen
         super(entityManager);
     }
 
-    @Override
-    public void save(Station entity) {
 
+
+
+    @Override
+    public void save(DefinitionStation entity) {
+        entityManager.persist(entity);
     }
 
     @Override
-    public void delete(Station entity) {
-
+    public void delete(DefinitionStation entity) {
+        entityManager.remove(entity);
     }
 
     @Override
-    public Station findById(Long id) {
-        return null;
+    public DefinitionStation findById(Long id) {
+        return entityManager.find(DefinitionStation.class,id);
     }
 
     @Override
-    public List<Station> getAll() {
-        return null;
+    public List<DefinitionStation> getAll() {
+        return entityManager.createNamedQuery("DefinitionStation.findAll").getResultList();
     }
 }

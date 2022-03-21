@@ -6,6 +6,10 @@ import javax.persistence.*;
  * 
  */
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "DefinitionStation.findAll", query = "select d from DefinitionStation d")
+})
+
 public class DefinitionStation {
 
     /**

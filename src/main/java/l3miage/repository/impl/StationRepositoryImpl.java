@@ -15,21 +15,21 @@ public class StationRepositoryImpl extends BaseRepositoryImpl implements Station
 
     @Override
     public void save(Station entity) {
-
+        entityManager.persist(entity);
     }
 
     @Override
     public void delete(Station entity) {
-
+        entityManager.remove(entity);
     }
 
     @Override
     public Station findById(Long id) {
-        return null;
+        return entityManager.find(Station.class,id);
     }
 
     @Override
     public List<Station> getAll() {
-        return null;
+        return entityManager.createNamedQuery("Station.findAll").getResultList();
     }
 }

@@ -1,13 +1,15 @@
 package l3miage.model;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.*;
 
 /**
  * 
  */
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "NonAbonne.findAll", query = "select n from NonAbonne n")
+})
 public class NonAbonne extends Client {
 
     /**
@@ -19,7 +21,7 @@ public class NonAbonne extends Client {
     /**
      * 
      */
-    @ManyToOne
+    @OneToMany
     public List<Location> locationsNonAbos;
 
 

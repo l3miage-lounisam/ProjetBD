@@ -6,6 +6,9 @@ import java.util.*;
 /**
  * 
  */
+@NamedQueries({
+        @NamedQuery(name = "Location.findAll", query = "select l from Location l")
+})
 @Entity
 public class Location {
 

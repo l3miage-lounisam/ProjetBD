@@ -7,6 +7,9 @@ import java.util.*;
  * 
  */
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Station.findAll", query = "select s from Station s")
+})
 public class Station {
 
     /**

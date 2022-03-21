@@ -7,6 +7,9 @@ import java.util.*;
  * 
  */
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Velo.findAll", query = "select v from Velo v")
+})
 public class Velo {
 
     /**
@@ -52,7 +55,8 @@ public class Velo {
     /**
      * 
      */
-    public Set<Trajet> trajets;
+    @OneToMany
+    public List<Trajet> trajets;
 
     public Bornette getBornette() {
         return bornette;
@@ -102,11 +106,11 @@ public class Velo {
         this.modele = modele;
     }
 
-    public Set<Trajet> getTrajets() {
+    public List<Trajet> getTrajets() {
         return trajets;
     }
 
-    public void setTrajets(Set<Trajet> trajets) {
+    public void setTrajets(List<Trajet> trajets) {
         this.trajets = trajets;
     }
 }

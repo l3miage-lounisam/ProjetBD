@@ -15,21 +15,21 @@ public class ModeleRepositoryImpl extends BaseRepositoryImpl implements ModeleRe
 
     @Override
     public void save(Modele entity) {
-
+        entityManager.persist(entity);
     }
 
     @Override
     public void delete(Modele entity) {
-
+        entityManager.remove(entity);
     }
 
     @Override
     public Modele findById(Long id) {
-        return null;
+        return entityManager.find(Modele.class,id);
     }
 
     @Override
     public List<Modele> getAll() {
-        return null;
+        return entityManager.createNamedQuery("Modele.findAll").getResultList();
     }
 }

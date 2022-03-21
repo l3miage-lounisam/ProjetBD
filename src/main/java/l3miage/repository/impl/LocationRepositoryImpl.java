@@ -18,21 +18,21 @@ public class LocationRepositoryImpl extends BaseRepositoryImpl implements Locati
 
     @Override
     public void save(Location entity) {
-
+            entityManager.persist(entity);
     }
 
     @Override
     public void delete(Location entity) {
-
+        entityManager.remove(entity);
     }
 
     @Override
     public Location findById(Long id) {
-        return null;
+        return entityManager.find(Location.class,id);
     }
 
     @Override
     public List<Location> getAll() {
-        return null;
+        return entityManager.createNamedQuery("Location.findAll").getResultList();
     }
 }

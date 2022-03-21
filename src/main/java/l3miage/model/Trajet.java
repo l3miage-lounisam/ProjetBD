@@ -7,6 +7,9 @@ import java.util.*;
  * 
  */
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Trajet.findAll", query = "select t from Trajet t")
+})
 public class Trajet {
 
     /**

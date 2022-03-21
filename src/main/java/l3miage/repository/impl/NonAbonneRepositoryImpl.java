@@ -16,21 +16,21 @@ public class NonAbonneRepositoryImpl extends BaseRepositoryImpl implements NonAb
 
     @Override
     public void save(NonAbonne entity) {
-
+        entityManager.persist(entity);
     }
 
     @Override
     public void delete(NonAbonne entity) {
-
+        entityManager.remove(entity);
     }
 
     @Override
     public NonAbonne findById(Long id) {
-        return null;
+        return entityManager.find(NonAbonne.class,id);
     }
 
     @Override
     public List<NonAbonne> getAll() {
-        return null;
+        return entityManager.createNamedQuery("NonAbonne.findAll").getResultList();
     }
 }

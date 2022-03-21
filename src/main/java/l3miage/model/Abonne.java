@@ -8,7 +8,7 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "Abonne.findAll", query = "select a from Abonne a")
+        @NamedQuery(name = "Abonne.findAll", query = "select a from Abonne a"),
 })
 public class Abonne extends Client {
 

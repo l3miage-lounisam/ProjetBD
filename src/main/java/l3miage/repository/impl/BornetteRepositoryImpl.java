@@ -17,21 +17,22 @@ public class BornetteRepositoryImpl extends BaseRepositoryImpl implements Bornet
 
     @Override
     public void save(Bornette entity) {
-
+        entityManager.persist(entity);
     }
 
     @Override
     public void delete(Bornette entity) {
-
+        entityManager.remove(entity);
     }
 
     @Override
     public Bornette findById(Long id) {
-        return null;
+
+         return entityManager.find(Bornette.class,id);
     }
 
     @Override
     public List<Bornette> getAll() {
-        return null;
+        return entityManager.createNamedQuery("Bornette.findAll").getResultList();
     }
 }

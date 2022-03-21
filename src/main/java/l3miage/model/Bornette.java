@@ -6,6 +6,10 @@ import javax.persistence.*;
  * 
  */
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Bornette.findAll", query = "select b from Bornette b")
+})
+
 public class Bornette {
 
     /**

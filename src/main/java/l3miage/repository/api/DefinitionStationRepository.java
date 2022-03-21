@@ -2,11 +2,11 @@ package l3miage.repository.api;
 
 
 
-import l3miage.model.Station;
+import l3miage.model.DefinitionStation;
 
 import java.util.List;
 
-public interface DefinitionStationRepository extends Repository<Station, Long> {
+public interface DefinitionStationRepository extends Repository<DefinitionStation, Long> {
 
 
 

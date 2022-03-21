@@ -14,21 +14,21 @@ public class TrajetRepositoryImpl extends BaseRepositoryImpl implements TrajetRe
 
     @Override
     public void save(Trajet entity) {
-
+        entityManager.persist(entity);
     }
 
     @Override
     public void delete(Trajet entity) {
-
+        entityManager.remove(entity);
     }
 
     @Override
     public Trajet findById(Long id) {
-        return null;
+        return entityManager.find(Trajet.class,id);
     }
 
     @Override
     public List<Trajet> getAll() {
-        return null;
+        return entityManager.createNamedQuery("Velo.findAll").getResultList();
     }
 }
