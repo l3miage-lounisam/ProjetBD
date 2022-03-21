@@ -8,7 +8,8 @@ import java.util.*;
  */
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "Velo.findAll", query = "select v from Velo v")
+        @NamedQuery(name = "Velo.findAll", query = "select v from Velo v"),
+        @NamedQuery(name = "Velo.updateEtatById", query = "update Velo v set v.etat = :etat where v.id = :id")
 })
 public class Velo {
 

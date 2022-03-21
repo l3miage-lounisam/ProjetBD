@@ -41,7 +41,15 @@ public class BornetteRepositoryImpl extends BaseRepositoryImpl implements Bornet
         return entityManager.createNamedQuery("Bornette.findByVeloOkByStationId").setParameter("id",id).getResultList();
     }
     @Override
+    public List<Bornette> getAllBornetteVideByStationId(Long id) {
+        return entityManager.createNamedQuery("Bornette.findBornetteVideByStationId").setParameter("id",id).getResultList();
+    }
+    @Override
     public void retraitVeloBornette(Long id){
         entityManager.createNamedQuery("Bornette.retraitVelo").setParameter("id",id).executeUpdate();
+    }
+    @Override
+    public void renduVeloBornette(Long idVelo, Long idBornette){
+        entityManager.createNamedQuery("Bornette.renduVelo").setParameter("idvelo",idVelo).setParameter("idbornette",idBornette).executeUpdate();
     }
 }

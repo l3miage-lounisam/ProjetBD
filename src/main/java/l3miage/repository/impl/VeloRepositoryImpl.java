@@ -1,6 +1,7 @@
 package l3miage.repository.impl;
 
 
+import l3miage.model.Etat;
 import l3miage.model.Velo;
 import l3miage.repository.api.VeloRepository;
 
@@ -33,5 +34,8 @@ public class VeloRepositoryImpl extends BaseRepositoryImpl implements VeloReposi
     public List<Velo> getAll() {
         return entityManager.createNamedQuery("Velo.findAll").getResultList();
     }
-
+    @Override
+    public void setEtatVeloById(Etat etat, Long id ){
+        entityManager.createNamedQuery("Velo.updateEtatById").setParameter("etat",etat).setParameter("id",id).executeUpdate();
+    }
 }
