@@ -16,6 +16,8 @@ public class NonAbonne extends Client {
      * Default constructor
      */
     public NonAbonne() {
+        Random r = new Random();
+        setCodeSecret(r.nextInt(10000));
     }
 
     /**

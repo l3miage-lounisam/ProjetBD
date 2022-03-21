@@ -33,4 +33,5 @@ public class VeloRepositoryImpl extends BaseRepositoryImpl implements VeloReposi
     public List<Velo> getAll() {
         return entityManager.createNamedQuery("Velo.findAll").getResultList();
     }
+
 }

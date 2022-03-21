@@ -7,7 +7,9 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "Bornette.findAll", query = "select b from Bornette b")
+        @NamedQuery(name = "Bornette.findAll", query = "select b from Bornette b"),
+        @NamedQuery(name = "Bornette.findByVeloOkByStationId", query = "select b from Bornette b where b.velo.etat = ok and b.station.id = :id"),
+        @NamedQuery(name = "Bornette.retraitVelo", query = "update Bornette b set b.velo = NULL where b.id = :id")
 })
 
 public class Bornette {

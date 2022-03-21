@@ -17,7 +17,7 @@
         <class>l3miage.model.Velo</class>
 
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mariadb://localhost:3306/projet"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mariadb://localhost:3306/test"/>
             <property name="javax.persistence.jdbc.user" value="root"/>
             <property name="javax.persistence.jdbc.password" value=""/>
             <property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver"/>

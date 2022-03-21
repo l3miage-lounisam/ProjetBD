@@ -1,11 +1,12 @@
 package l3miage.repository.impl;
 
 
-import l3miage.model.Abonne;
+
 import l3miage.model.Bornette;
 import l3miage.repository.api.BornetteRepository;
 
 import javax.persistence.EntityManager;
+
 import java.util.List;
 
 public class BornetteRepositoryImpl extends BaseRepositoryImpl implements BornetteRepository {
@@ -34,5 +35,13 @@ public class BornetteRepositoryImpl extends BaseRepositoryImpl implements Bornet
     @Override
     public List<Bornette> getAll() {
         return entityManager.createNamedQuery("Bornette.findAll").getResultList();
+    }
+    @Override
+    public List<Bornette> getAllVeloOkByStationId(Long id) {
+        return entityManager.createNamedQuery("Bornette.findByVeloOkByStationId").setParameter("id",id).getResultList();
+    }
+    @Override
+    public void retraitVeloBornette(Long id){
+        entityManager.createNamedQuery("Bornette.retraitVelo").setParameter("id",id).executeUpdate();
     }
 }

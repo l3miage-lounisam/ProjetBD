@@ -29,7 +29,7 @@ public abstract class Client {
      * 
      */
     @Column(nullable = false)
-    private String codeSecret;
+    private Integer codeSecret;
 
     public Long getId() {
         return id;
@@ -47,11 +47,11 @@ public abstract class Client {
         this.numeroCB = numeroCB;
     }
 
-    public String getCodeSecret() {
+    public Integer getCodeSecret() {
         return codeSecret;
     }
 
-    public void setCodeSecret(String codeSecret) {
+    public void setCodeSecret(Integer codeSecret) {
         this.codeSecret = codeSecret;
     }
 }

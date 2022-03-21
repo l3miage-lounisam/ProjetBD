@@ -1,5 +1,6 @@
 package repository;
 
+import l3miage.model.Station;
 import l3miage.repository.api.StationRepository;
 import l3miage.repository.api.VeloRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -24,6 +25,11 @@ public class StationTest extends Base{
     }
     @Test
     void shouldSaveStation() {
-
+            Station station = new Station();
+            station.setAdresse("2 rue du moulin");
+            entityManager.getTransaction().begin();
+            stationRepository.save(station);
+            entityManager.getTransaction().commit();
+            entityManager.detach(station);
     }
 }
