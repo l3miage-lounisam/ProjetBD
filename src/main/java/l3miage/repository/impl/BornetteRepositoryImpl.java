@@ -3,6 +3,8 @@ package l3miage.repository.impl;
 
 
 import l3miage.model.Bornette;
+import l3miage.model.Etat;
+import l3miage.model.Velo;
 import l3miage.repository.api.BornetteRepository;
 
 import javax.persistence.EntityManager;
@@ -37,19 +39,32 @@ public class BornetteRepositoryImpl extends BaseRepositoryImpl implements Bornet
         return entityManager.createNamedQuery("Bornette.findAll").getResultList();
     }
     @Override
-    public List<Bornette> getAllVeloOkByStationId(Long id) {
-        return entityManager.createNamedQuery("Bornette.findByVeloOkByStationId").setParameter("id",id).getResultList();
+    public List<Bornette> getAllVeloOkByStationId(Long idStation) {
+        return entityManager.createNamedQuery("Bornette.findByVeloOkByStationId").setParameter("etat", Etat.ok).setParameter("id",idStation).getResultList();
     }
     @Override
-    public List<Bornette> getAllBornetteVideByStationId(Long id) {
-        return entityManager.createNamedQuery("Bornette.findBornetteVideByStationId").setParameter("id",id).getResultList();
+    public List<Bornette> getAllBornetteVideByStationId(Long idStation) {
+        return entityManager.createNamedQuery("Bornette.findBornetteVideByStationId").setParameter("id",idStation).getResultList();
     }
     @Override
-    public void retraitVeloBornette(Long id){
-        entityManager.createNamedQuery("Bornette.retraitVelo").setParameter("id",id).executeUpdate();
+    public Velo retraitVeloBornette(Long idBornette){
+
+        entityManager.getTransaction().begin();
+        Bornette bornette = findById(idBornette);
+        Velo velo = bornette.getVelo();
+        bornette.removeVelo();
+        save(bornette);
+        entityManager.getTransaction().commit();
+        return velo;
+        //  entityManager.createNamedQuery("Bornette.retraitVelo").setParameter("id",idBornette).executeUpdate();
     }
     @Override
-    public void renduVeloBornette(Long idVelo, Long idBornette){
-        entityManager.createNamedQuery("Bornette.renduVelo").setParameter("idvelo",idVelo).setParameter("idbornette",idBornette).executeUpdate();
+    public void renduVeloBornette(Velo velo, Long idBornette){
+        //entityManager.createNamedQuery("Bornette.renduVelo").setParameter("idvelo",idVelo).setParameter("idbornette",idBornette).executeUpdate();
+        entityManager.getTransaction().begin();
+        Bornette bornette = findById(idBornette);
+        bornette.setVelo(velo);
+        save(bornette);
+        entityManager.getTransaction().commit();
     }
 }

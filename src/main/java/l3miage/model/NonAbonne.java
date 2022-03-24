@@ -11,6 +11,20 @@ import java.util.*;
         @NamedQuery(name = "NonAbonne.findAll", query = "select n from NonAbonne n")
 })
 public class NonAbonne extends Client {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     /**
      * Default constructor

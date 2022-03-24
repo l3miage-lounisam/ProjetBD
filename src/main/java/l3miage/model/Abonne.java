@@ -12,7 +12,10 @@ import javax.persistence.*;
 })
 public class Abonne extends Client {
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private Long id;
 
     /**
      * Default constructor
@@ -64,6 +67,10 @@ public class Abonne extends Client {
     public List<Location> locations;
 
 
+    @Override
+    public Long getId() {
+        return id;
+    }
 
     public String getNom() {
         return nom;

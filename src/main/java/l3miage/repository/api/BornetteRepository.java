@@ -3,6 +3,7 @@ package l3miage.repository.api;
 
 
 import l3miage.model.Bornette;
+import l3miage.model.Velo;
 
 import java.util.List;
 
@@ -15,7 +16,8 @@ public interface BornetteRepository extends Repository<Bornette, Long> {
 
     List<Bornette> getAllBornetteVideByStationId(Long id);
 
-    void retraitVeloBornette(Long id);
+    Velo retraitVeloBornette(Long id);
 
-    void renduVeloBornette(Long idVelo, Long idBornette);
+
+    void renduVeloBornette(Velo velo, Long idBornette);
 }
