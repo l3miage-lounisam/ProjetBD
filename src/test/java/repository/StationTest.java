@@ -31,5 +31,8 @@ public class StationTest extends Base{
             stationRepository.save(station);
             entityManager.getTransaction().commit();
             entityManager.detach(station);
+        var pStation = stationRepository.findById(station.getId());
+        assertThat(pStation).isNotNull().isNotSameAs(station);
+        assertThat(pStation.getAdresse()).isEqualTo(station.getAdresse());
     }
 }
