@@ -158,5 +158,39 @@ public class BornetteTest extends Base{
         Bornette pBornette1 = bornetteRepository.findById(bornette1.getId());
         assertTrue(pBornette1.getVelo()==null);
     }
+    @Test
+    void testRenduVelo(){
+        Station station = new Station();
+        station.setAdresse("2 rue du moulin");
+        Bornette bornette1 = new Bornette();
+        Bornette bornette2 = new Bornette();
 
+        Modele modele = new Modele();
+        modele.setNom("VTT");
+        Velo v1 = new Velo();
+        v1.setModele(modele);
+        Velo v2 = new Velo();
+        v2.setModele(modele);
+
+        v1.setEtat(Etat.ok);
+
+        bornette1.setVelo(v1);
+        bornette1.setStation(station);
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(station);
+        entityManager.persist(modele);
+        entityManager.persist(v1);
+        entityManager.persist(v2);
+
+        bornetteRepository.save(bornette1);
+        bornetteRepository.save(bornette2);
+
+
+        entityManager.getTransaction().commit();
+
+        bornetteRepository.renduVeloBornette(v2,bornette2.getId());
+        Bornette pBornette2 = bornetteRepository.findById(bornette2.getId());
+        assertTrue(pBornette2.getVelo().getId()==v2.getId());
+    }
 }

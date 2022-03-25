@@ -15,7 +15,9 @@ public class Trajet {
     /**
      * Default constructor
      */
-
+public Trajet(){
+    this.dateDebutTrajet = new Date();
+}
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -65,6 +67,9 @@ public class Trajet {
     @ManyToOne
     public Velo velo;
 
+    public void calculDuree(){
+       this.duree = Math.toIntExact((dateFinTrajet.getTime() - dateDebutTrajet.getTime()) /1000 /60);
+    }
 
 
     public Station getStationArrive() {
@@ -136,6 +141,8 @@ public class Trajet {
      */
 
     public void CalculPrixTrajet() {
+        this.prix = velo.modele.getCoutHoraire()*duree;
+
         // TODO implement here
     }
 
