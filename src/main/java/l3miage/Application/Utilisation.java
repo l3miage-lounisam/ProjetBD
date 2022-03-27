@@ -42,7 +42,7 @@ public class Utilisation {
     }
     public Station affichageStations() {
         Scanner sc = new Scanner(System.in);
-        List<Station> stations = stationRepository.getAll();
+        List<Station> stations = stationRepository.getAll();//Affiche toute les stations existantes
         int choix;
         do {
             int cpt = 0;
@@ -109,7 +109,7 @@ public class Utilisation {
         Location location;
         String abo;
         Scanner sc = new Scanner(System.in);
-        List<Bornette> bornettes = bornetteRepository.getAllVeloOkByStationId(station.getId());
+        List<Bornette> bornettes = bornetteRepository.getAllVeloOkByStationId(station.getId()); //Affiche la liste des bornettes conetenant un velo en bon etat
         int choix;
         do {
             int cpt = 0;
@@ -131,14 +131,15 @@ public class Utilisation {
             do {
                 System.out.println("Veuillez entrer votre code secret");
                 codesecret = sc.nextInt();
-                abonne = abonneRepository.findAbonneByCodeSecret(codesecret);
+                abonne = abonneRepository.findAbonneByCodeSecret(codesecret); //Vérifie que l'abonne existe en base
                 cpt2++;
             }while(abonne==null&&cpt2<3);
             if(abonne==null)
                 System.out.println("Code secret incorrect");
             else{
 
-               Velo velo =  bornetteRepository.retraitVeloBornette(bornettes.get(choix).getId());
+               Velo velo =  bornetteRepository.retraitVeloBornette(bornettes.get(choix).getId());//Retrait du velo à la bornette qui supprime le velo de la bornette
+
 
                 entityManager.getTransaction().begin();
 
@@ -157,7 +158,7 @@ public class Utilisation {
         else{
             System.out.println("Veuillez entrer votre numéro de carte bancaire ");
             nonAbonne =  Generation.createNonAbonne(sc.nextLong());
-            Velo velo =  bornetteRepository.retraitVeloBornette(bornettes.get(choix).getId()); //Retrait du velo à la bornette
+            Velo velo =  bornetteRepository.retraitVeloBornette(bornettes.get(choix).getId()); //Retrait du velo à la bornette qui supprime le velo de la bornette
 
             entityManager.getTransaction().begin();
             nonAbonneRepository.save(nonAbonne);
@@ -207,7 +208,7 @@ public class Utilisation {
             do {
                 System.out.println("Veuillez entrer votre code secret");
                 codesecret = sc.nextInt();
-                abonne = abonneRepository.findAbonneByCodeSecret(codesecret);
+                abonne = abonneRepository.findAbonneByCodeSecret(codesecret); // Vérifie que l'abonne existe pour ce code secret
                 cpt2++;
             }while(abonne==null&&cpt2<3);
             if(abonne==null)
@@ -230,7 +231,6 @@ public class Utilisation {
                     trajet.setStationArrive(station);//
                     location.addTrajet(trajet);//
                     location.calculPrix();   //Calcul le prix de la location
-
                     entityManager.getTransaction().begin();
                     veloRepository.save(velo);
                     locationRepository.save(location);
