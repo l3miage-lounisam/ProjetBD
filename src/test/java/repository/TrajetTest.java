@@ -23,6 +23,8 @@ public class TrajetTest extends Base{
             entityManager.getTransaction().rollback();
         }
     }
+    
+    // Enregistrer un trajet dans la bdd
     @Test
     void shouldSaveTrajet() throws InterruptedException {
         Station station1 = new Station();
@@ -75,6 +77,7 @@ public class TrajetTest extends Base{
 
     }
 
+    // Enregistrer la fin d'un trajet dans la bdd
     @Test
     void shouldSaveFinTrajet() throws InterruptedException {
         Station station1 = new Station();
