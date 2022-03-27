@@ -4,8 +4,12 @@ import javax.persistence.*;
 import java.util.Random;
 
 /**
+ * création de la classe client, la classe mére des classes: les abonneé et les nonAbonne,
+ * chaque client(abonné ou NonAbonne) possede un numéroCB et un CodeSecret qui lui permetra de s'identifier
  * 
  */
+
+//mapping
 @Inheritance(strategy= InheritanceType.JOINED)
 @Entity
 @DiscriminatorColumn(name="type")
@@ -41,7 +45,7 @@ public abstract class Client {
     public void setId(Long id) {
         this.id = id;
     }
-
+    //le numéro de carte bancaire d'un client
     public Long getNumeroCB() {
         return numeroCB;
     }
@@ -50,6 +54,7 @@ public abstract class Client {
         this.numeroCB = numeroCB;
     }
 
+    //le code secret d'un client 
     public Integer getCodeSecret() {
         return codeSecret;
     }
