@@ -23,6 +23,8 @@ public class LocationTest extends Base{
             entityManager.getTransaction().rollback();
         }
     }
+    
+    // Trouver une location en cours
     @Test
     void shouldFindLocationNonTermine() throws InterruptedException {
         Station station1 = new Station();
@@ -93,6 +95,7 @@ public class LocationTest extends Base{
 */
     }
 
+    // Trouver une location terminée (quand un utilisateur dépose le vélo)
     @Test
     void shouldFindLocationTermine() throws InterruptedException {
         Station station1 = new Station();

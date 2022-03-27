@@ -26,6 +26,8 @@ public class BornetteTest extends Base{
             entityManager.getTransaction().rollback();
         }
     }
+    
+    // Enregistrer une bornette dans la bdd
     @Test
     void shouldSaveBornette() {
         Station station = new Station();
@@ -42,6 +44,8 @@ public class BornetteTest extends Base{
         //assertThat(pBornette).isNotNull().isNotSameAs(bornette);
         assertThat(pBornette.getEtat()).isEqualTo(bornette.getEtat());
     }
+    
+    // Avoir la liste de tous les vélos disponibles d'une station en fonction de son id
     @Test
     void shouldGetAllVeloOkByStationId(){
         Station station = new Station();
@@ -86,6 +90,8 @@ public class BornetteTest extends Base{
         assertTrue(pBornettes.stream().anyMatch(s-> s.getId().equals(bornette1.getId())));
         assertTrue(pBornettes.stream().anyMatch(s-> s.getId().equals(bornette3.getId())));
     }
+    
+    // Avoir la liste de toutes les bornettes vides d'une station en fonction de son id
     @Test
     void shouldGetAllBornetteVideByStationId(){
         Station station = new Station();
@@ -129,6 +135,8 @@ public class BornetteTest extends Base{
         assertTrue(pBornettes.stream().anyMatch(s-> s.getId().equals(bornette2.getId())));
         assertTrue(pBornettes.stream().anyMatch(s-> s.getId().equals(bornette4.getId())));
     }
+    
+    // Enlever un vélo de la bdd, cela signifie qu'il a été emprunté 
     @Test
     void testRetraitVelo(){
         Station station = new Station();
@@ -158,6 +166,8 @@ public class BornetteTest extends Base{
         Bornette pBornette1 = bornetteRepository.findById(bornette1.getId());
         assertNull(pBornette1.getVelo());
     }
+    
+    // Remettre le vélo dans la bdd
     @Test
     void testRenduVelo(){
         Station station = new Station();
