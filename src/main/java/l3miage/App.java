@@ -6,7 +6,11 @@ import l3miage.repository.*;
 import l3miage.repository.api.*;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Id;
 import javax.persistence.Persistence;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class App {
@@ -31,14 +35,17 @@ public class App {
                 System.out.println("[5] Louer plusieurs vélos");
                 System.out.println("[6] Voir l'état des stations");
                 System.out.println("[7] Signaler"); // signaler l'état d'un vélo (vélo rendu ou non)
-                System.out.println("[8] retirer un velo");
 
                 Bornette bornette = new Bornette();
                 choix = sc.nextInt();
                 switch(choix){
                     case 1:
                         System.out.flush();
-                        empruntVelo();
+                        Velo v;
+                        BornetteRepository bornetteRepository =  daoFactory.newBornetteRepository(entityManager);
+                        ArrayList<Bornette> li =  (ArrayList<Bornette>) bornetteRepository.getAll();
+                        v =  retraitVelo(li.get(0));
+                        System.out.println("Votre avez bien retiré le vélo n° "+v.getId() + "!");
                         break;
 
                     case 2:
@@ -64,10 +71,7 @@ public class App {
                         signaler();
                         break;
                     case 8:
-                        System.out.flush();
-                        //BornetteRepository bornetteRepository =  daoFactory.newBornetteRepository(entityManager);
-                        //ArrayList<Bornette> li =  (ArrayList<Bornette>) bornetteRepository.getAll();
-                        retraitVelo(bornette);
+                       
                         break;
 
                     default:
@@ -90,10 +94,11 @@ public class App {
 
     }
 
-    private static void retraitVelo(Bornette bornette) {
+    private static Velo retraitVelo(Bornette bornette) {
+        Velo velo;
         BornetteRepository bornetteRepository =  daoFactory.newBornetteRepository(entityManager);
-        bornetteRepository.retraitVeloBornette(bornette.getId());
-
+        velo =  bornetteRepository.retraitVeloBornette(bornette.getId());
+        return velo;
     }
 
     private static void signaler() {
@@ -106,13 +111,19 @@ public class App {
     private static void louerPlusieursVelos() {
     }
 
-    private static void progVplus() {
-    }
+    private static void progVplus() {}
+
 
     private static void sAbonner() {
     }
 
     private static void rendreVelo() {
+        
+        BornetteRepository bornetteRepository = daoFactory.newBornetteRepository(entityManager);
+        Velo v = new Velo();
+        List<Bornette> li = bornetteRepository.getAll();
+        bornetteRepository.renduVeloBornette(v, li.get(2).getId());
+
     }
 
     private static void empruntVelo() {
