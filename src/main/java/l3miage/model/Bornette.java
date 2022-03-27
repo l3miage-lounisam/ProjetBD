@@ -3,7 +3,8 @@ package l3miage.model;
 import javax.persistence.*;
 
 /**
- * 
+ * Creation d'une classe bornette qui défini l'etat de la bornette, elle est identifier par  un etat("ok" ou "hs")
+ * une bornette se trouve dans une station et contient 0 ou 1 velo 
  */
 @Entity
 @NamedQueries({
@@ -21,6 +22,7 @@ public class Bornette {
      */
 
 
+    //le mapping 
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,6 +46,7 @@ public class Bornette {
     @ManyToOne
     public Station station;
 
+    //L'identifaint de la bornette
     public Long getId() {
         return id;
     }
@@ -52,6 +55,7 @@ public class Bornette {
         this.id = id;
     }
 
+    //l'etat de la bornette de type etat
     public Etat getEtat() {
         return etat;
     }
@@ -60,6 +64,7 @@ public class Bornette {
         this.etat = etat;
     }
 
+    //Renvoi le velo qui se trouve a la bornette 
     public Velo getVelo() {
         return velo;
     }
@@ -69,6 +74,8 @@ public class Bornette {
         if(velo!=null)
          velo.setBornette(this);
     }
+
+    //
     public void removeVelo(){
         if(velo!=null){
             this.velo.setBornette(null);
@@ -76,6 +83,7 @@ public class Bornette {
         }
     }
 
+    //Station posseadant la bornette 
     public Station getStation() {
         return station;
     }
