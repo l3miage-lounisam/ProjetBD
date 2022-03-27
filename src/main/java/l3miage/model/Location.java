@@ -20,6 +20,7 @@ public class Location {
      * Default constructor
      */
     public Location() {
+        this.trajets = new ArrayList<>();
     }
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -67,6 +68,9 @@ public class Location {
         this.id = id;
     }
 
+    public void addTrajet(Trajet trajet){
+        this.trajets.add(trajet);
+    }
     /**
      * @return
      */

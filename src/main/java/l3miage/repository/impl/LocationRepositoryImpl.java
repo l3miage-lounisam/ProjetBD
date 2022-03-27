@@ -46,9 +46,10 @@ public class LocationRepositoryImpl extends BaseRepositoryImpl implements Locati
     }
     @Override
     public boolean isLocationTermine(Long idlocation){
-        int nbtrajet = 1;
-        nbtrajet = (int) entityManager.createNamedQuery("Location.countByIdAndTrajets_StationArriveIsNull").setParameter("id",idlocation).getSingleResult();
-        if(nbtrajet==0)
+        Long nbtrajet;
+        nbtrajet = (Long) entityManager.createNamedQuery("Location.countByIdAndTrajets_StationArriveIsNull").setParameter("id",idlocation).getSingleResult();
+        //System.out.println(nbtrajet);
+        if(nbtrajet==0L)
             return true;
         else
             return false;
