@@ -3,6 +3,9 @@ package l3miage.model;
 import javax.persistence.*;
 
 /**
+ * creation de la classe DefinitionStation qui est defini par une heur pour
+ * determiner si une station donné est Vplus ou Vmoins le cas du campus le matin qui est Vplus et le soir Vmoins, et par exemple
+ * pendant les vacances Vnull
  * 
  */
 @Entity
@@ -46,6 +49,7 @@ public class DefinitionStation {
         this.id = id;
     }
 
+    //L'heure qui definit si la station est Vplus ou Vmoins ou Vnull
     public Integer getHeure() {
         return heure;
     }
@@ -54,6 +58,7 @@ public class DefinitionStation {
         this.heure = heure;
     }
 
+    //Deffinir une station 
     public Definition getDefStation() {
         return defStation;
     }
@@ -62,6 +67,7 @@ public class DefinitionStation {
         this.defStation = defStation;
     }
 
+    //station a définir
     public Station getStation() {
         return station;
     }

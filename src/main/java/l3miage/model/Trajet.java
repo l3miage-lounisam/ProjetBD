@@ -4,7 +4,9 @@ import javax.persistence.*;
 import java.util.*;
 
 /**
- * 
+ * creation de la classe trajet, chaque trajet est identifier par 
+ * une dateDebutTrajet, dateFinTrajet, une duree et un prix
+ * un trajte effectuer par un velo ,entre une station de depart et une station d'arriver
  */
 @Entity
 @NamedQueries({
@@ -67,15 +69,17 @@ public Trajet(){
     @ManyToOne
     public Velo velo;
 
+    //calcule du la duree du trajet 
     public void calculDuree(){
        this.duree = Math.toIntExact((dateFinTrajet.getTime() - dateDebutTrajet.getTime()) /1000 );
     }
 
-
+    //la station d'arriver
     public Station getStationArrive() {
         return stationArrive;
     }
-
+    
+    //station de depart
     public Station getStationDepart() {
         return stationDepart;
     }
@@ -88,6 +92,7 @@ public Trajet(){
         this.id = id;
     }
 
+    //date de debut du trajet
     public Date getDateDebutTrajet() {
         return dateDebutTrajet;
     }
@@ -96,6 +101,7 @@ public Trajet(){
         this.dateDebutTrajet = dateDebutTrajet;
     }
 
+    //date de fin de trajet
     public Date getDateFinTrajet() {
         return dateFinTrajet;
     }
@@ -105,22 +111,24 @@ public Trajet(){
 
     }
 
+    //la duree du trajet
     public Integer getDuree() {
         return duree;
     }
 
-
+    // le prix du trajet
     public Float getPrix() {
         return prix;
     }
 
 
+    //updat station de depart
     public void setStationDepart(Station stationDepart) {
         this.stationDepart = stationDepart;
         this.dateDebutTrajet = new Date();
 
     }
-
+    //updat station d'arriver
     public void setStationArrive(Station stationArrive) {
         this.stationArrive = stationArrive;
         this.dateFinTrajet = new Date();
@@ -140,6 +148,7 @@ public Trajet(){
      * 
      */
 
+     //calculer le prix du trajet par heure selon le modele
     public void calculPrixTrajet() {
         this.prix = velo.modele.getCoutHoraire()*duree;
 

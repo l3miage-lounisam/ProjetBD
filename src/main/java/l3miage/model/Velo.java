@@ -4,8 +4,14 @@ import javax.persistence.*;
 import java.util.*;
 
 /**
- * 
+ * creation de la classe velo, chaque velo a une dateMiseService de type Date et un etat de type Etat("ok", "hs")
+ * et une puce
+ * un velo et accueilli par une seule bornette dans une station
+ * un velo a un seul modele
+ * un vélo effectu un trajet
  */
+
+ //mapping
 @Entity
 @NamedQueries({
         @NamedQuery(name = "Velo.findAll", query = "select v from Velo v"),

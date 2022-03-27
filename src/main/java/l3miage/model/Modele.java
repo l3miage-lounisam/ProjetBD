@@ -4,7 +4,8 @@ import javax.persistence.*;
 import java.util.*;
 
 /**
- * 
+ * création d'une classe modéle qui définit le modéle d'un velo,
+ * chaque modéle a un nom et un coutHoraire, un vélo a un et un seul modele 
  */
 @Entity
 @NamedQueries({
@@ -52,7 +53,7 @@ public class Modele {
     public void setNom(String nom) {
         this.nom = nom;
     }
-
+    //le cout de la location qui dépent du modéle d'un velo est compté a l'heure
     public Float getCoutHoraire() {
         return coutHoraire;
     }
