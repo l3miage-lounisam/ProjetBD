@@ -169,7 +169,7 @@ public class Utilisation {
             entityManager.getTransaction().commit();
 
             System.out.println("Vous avez retiré un velo de type " + velo.getModele().getNom());
-            System.out.println("Voici votre code secret " + nonAbonne.getCodeSecret());
+            System.out.println("Voici votre code secret : " + nonAbonne.getCodeSecret());
 
         }
 
@@ -183,6 +183,7 @@ public class Utilisation {
         Location location;
         String abo;
         Velo velo;
+        String etatvelo; //Dire si le velo est en bon etat lors du rendu
         Scanner sc = new Scanner(System.in);
         List<Bornette> bornettes = bornetteRepository.getAllBornetteVideByStationId(station.getId()); // On affiche toutes les bornettes vides où on peut rendre un velo
         int choix;
@@ -211,35 +212,40 @@ public class Utilisation {
             }while(abonne==null&&cpt2<3);
             if(abonne==null)
                 System.out.println("Code secret incorrect");
-            else{
+            else {
                 location = locationRepository.findLocationNonTermineByAbonneCodeSecret(codesecret);
-                trajet = location.trajets.get(0);
-                 velo = trajet.getVelo();
-                System.out.println("Le vélo était-il en bon état ? (Y/N)");
-                if(Objects.equals(sc.nextLine().toLowerCase(Locale.ROOT), "y"))
-                    velo.setEtat(Etat.ok);
+                if (location != null) {
+                    trajet = location.trajets.get(0);
+                    velo = trajet.getVelo();
+                    System.out.println("Le vélo était-il en bon état ? (Y/N)");
+                    Scanner sc3 = new Scanner(System.in);
+                    etatvelo = sc3.nextLine();
+                    if (Objects.equals(etatvelo.toLowerCase(Locale.ROOT), "y"))
+                        velo.setEtat(Etat.ok);
+                    else
+                        velo.setEtat(Etat.hs);
+                    bornetteRepository.renduVeloBornette(trajet.getVelo(), bornettes.get(choix).getId()); // Ajoute le vélo à la bornette de rendu
+
+                    location.trajets.remove(trajet);  // Supprime le trajet de la location pour le mettre à jour et définir son arrive
+                    trajet.setStationArrive(station);//
+                    location.addTrajet(trajet);//
+                    location.calculPrix();   //Calcul le prix de la location
+
+                    entityManager.getTransaction().begin();
+                    veloRepository.save(velo);
+                    locationRepository.save(location);
+                    trajetRepository.save(trajet);
+                    entityManager.getTransaction().commit();
+                    System.out.println("Vous avez rendu le velo n°" + trajet.getVelo().getId() + " de type : " + trajet.getVelo().getModele().getNom());
+                    System.out.println("Vous avez bénéficié d'une reduction de 30% car vous êtes abonné");
+                    System.out.println("Vous avez été débité de : " + location.getPrix() * 0.7 + "€");
+                    System.out.println("Pour le trajet de : " + trajet.stationDepart.getAdresse() + " à : " + trajet.stationArrive.getAdresse());
+                    System.out.println("D'une durée de : " + location.getDureeLoc());
+                }
                 else
-                   velo.setEtat(Etat.hs);
-                bornetteRepository.renduVeloBornette(trajet.getVelo(),bornettes.get(choix).getId());
+                    System.out.println("Erreur : vous n'avez pas de location en cours");
 
-                location.trajets.remove(trajet);
-
-                trajet.setStationArrive(station);
-                location.addTrajet(trajet);
-                location.calculPrix();
-
-                entityManager.getTransaction().begin();
-                veloRepository.save(velo);
-                locationRepository.save(location);
-                trajetRepository.save(trajet);
-                entityManager.getTransaction().commit();
-                System.out.println("Vous avez rendu le velo n°" + trajet.getVelo().getId() + " de type : "+trajet.getVelo().getModele().getNom());
-                System.out.println("Vous avez bénéficié d'une reduction de 30% car vous êtes abonné");
-                System.out.println("Vous avez été débité de : " + location.getPrix()*0.7+"€");
-                System.out.println("Pour le trajet de : " + trajet.stationDepart.getAdresse() + " à : " +trajet.stationArrive.getAdresse());
-                System.out.println("D'une durée de : " +location.getDureeLoc());
             }
-
         }
         else{
             int cpt2=0;
@@ -251,32 +257,38 @@ public class Utilisation {
             }while(nonAbonne==null&&cpt2<3);
             if(nonAbonne==null)
                 System.out.println("Code secret incorrect");
-            else{
+            else {
                 location = locationRepository.findLocationNonTermineByNonAbonneCodeSecret(codesecret);
-                trajet = location.trajets.get(0);
-                velo = trajet.getVelo();
-                System.out.println("Le vélo était-il en bon état ? (Y/N)");
-                if(Objects.equals(sc.nextLine().toLowerCase(Locale.ROOT), "y"))
-                    velo.setEtat(Etat.ok);
+                if (location != null) {
+                    trajet = location.trajets.get(0);
+                    velo = trajet.getVelo();
+                    System.out.println("Le vélo était-il en bon état ? (Y/N)");
+                    Scanner sc3 = new Scanner(System.in);
+                    etatvelo = sc3.nextLine();
+                    if (Objects.equals(etatvelo.toLowerCase(Locale.ROOT), "y"))
+                        velo.setEtat(Etat.ok);
+                    else
+                        velo.setEtat(Etat.hs);
+                    bornetteRepository.renduVeloBornette(trajet.getVelo(), bornettes.get(choix).getId());
+
+                    location.trajets.remove(trajet);
+
+                    trajet.setStationArrive(station);
+                    location.addTrajet(trajet);
+                    location.calculPrix();
+
+                    entityManager.getTransaction().begin();
+                    veloRepository.save(velo);
+                    locationRepository.save(location);
+                    trajetRepository.save(trajet);
+                    entityManager.getTransaction().commit();
+                    System.out.println("Vous avez rendu le velo n°" + trajet.getVelo().getId() + " de type : " + trajet.getVelo().getModele().getNom());
+                    System.out.println("Vous avez été débité de : " + location.getPrix() + "€");
+                    System.out.println("Pour le trajet de : " + trajet.stationDepart.getAdresse() + " à : " + trajet.stationArrive.getAdresse());
+                    System.out.println("D'une durée de : " + location.getDureeLoc());
+                }
                 else
-                    velo.setEtat(Etat.hs);
-                bornetteRepository.renduVeloBornette(trajet.getVelo(),bornettes.get(choix).getId());
-
-                location.trajets.remove(trajet);
-
-                trajet.setStationArrive(station);
-                location.addTrajet(trajet);
-                location.calculPrix();
-
-                entityManager.getTransaction().begin();
-                veloRepository.save(velo);
-                locationRepository.save(location);
-                trajetRepository.save(trajet);
-                entityManager.getTransaction().commit();
-                System.out.println("Vous avez rendu le velo n°" + trajet.getVelo().getId() + " de type : "+trajet.getVelo().getModele().getNom());
-                System.out.println("Vous avez été débité de : " + location.getPrix()+"€");
-                System.out.println("Pour le trajet de : " + trajet.stationDepart.getAdresse() + " à : " +trajet.stationArrive.getAdresse());
-                System.out.println("D'une durée de : " +location.getDureeLoc());
+                    System.out.println("Erreur : vous n'avez pas de location en cours");
             }
 
         }

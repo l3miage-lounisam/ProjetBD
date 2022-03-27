@@ -36,14 +36,26 @@ public class LocationRepositoryImpl extends BaseRepositoryImpl implements Locati
         return entityManager.createNamedQuery("Location.findAll").getResultList();
     }
 
+    //Permet d'obtenir la liste des locations pour le rendu du vélo
     @Override
     public Location findLocationNonTermineByAbonneCodeSecret(Integer codesecret){
-        return (Location) entityManager.createNamedQuery("Location.findByAbonne_CodeSecretAndDureeLocIsNull").setParameter("codeSecret",codesecret).getSingleResult();
+        List<Location> location = entityManager.createNamedQuery("Location.findByAbonne_CodeSecretAndDureeLocIsNull").setParameter("codeSecret",codesecret).getResultList();
+        if(!location.isEmpty()) {
+            return location.get(0);
+        }
+        else
+            return null;
     }
     @Override
     public Location findLocationNonTermineByNonAbonneCodeSecret(Integer codesecret){
-        return (Location) entityManager.createNamedQuery("Location.findByNonAbonne_CodeSecretAndDureeLocIsNull").setParameter("codeSecret",codesecret).getSingleResult();
+        List<Location> location  = entityManager.createNamedQuery("Location.findByNonAbonne_CodeSecretAndDureeLocIsNull").setParameter("codeSecret",codesecret).getResultList();
+        if(!location.isEmpty()) {
+            return location.get(0);
+        }
+        else
+            return null;
     }
+    //Permet de vérifier qu'une locatione est terminé (donc qu'une station d'arrivée a été donnée)
     @Override
     public boolean isLocationTermine(Long idlocation){
         Long nbtrajet;

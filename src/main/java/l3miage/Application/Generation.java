@@ -117,6 +117,7 @@ public class Generation {
         return nonAbonne;
     }
 
+//Initialises les données dans les tables (Station/Bornette/Velo)
     public static void setup(EntityManager entityManager, RepositoryFactory daoFactory){
         AbonneRepository abonneRepository;
         BornetteRepository bornetteRepository;
