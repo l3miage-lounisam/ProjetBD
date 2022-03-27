@@ -23,6 +23,8 @@ public class StationTest extends Base{
             entityManager.getTransaction().rollback();
         }
     }
+    
+    // enregistrer une station dans la bdd avec des valeurs par défaut
     @Test
     void shouldSaveStation() {
             Station station = new Station();
