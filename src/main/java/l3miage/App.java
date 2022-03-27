@@ -20,7 +20,7 @@ public class App {
 
     public static void main(String[] args) {
 
-        try {
+      try {
             /* Menu utilisateur */
             System.out.println("Bienvenue sur l'application VePick !");
             Scanner sc = new Scanner(System.in);
@@ -36,7 +36,6 @@ public class App {
                 System.out.println("[6] Voir l'état des stations");
                 System.out.println("[7] Signaler"); // signaler l'état d'un vélo (vélo rendu ou non)
 
-                Bornette bornette = new Bornette();
                 choix = sc.nextInt();
                 switch(choix){
                     case 1:
@@ -71,7 +70,7 @@ public class App {
                         signaler();
                         break;
                     case 8:
-                       
+
                         break;
 
                     default:
