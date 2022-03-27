@@ -31,4 +31,7 @@ public class TrajetRepositoryImpl extends BaseRepositoryImpl implements TrajetRe
     public List<Trajet> getAll() {
         return entityManager.createNamedQuery("Velo.findAll").getResultList();
     }
+    public Trajet findTrajetNonTermineByVelo(Long idVelo){
+        return (Trajet) entityManager.createNamedQuery("Trajet.findByVelo_IdAndDateFinTrajetIsNull").setParameter("id",idVelo).getSingleResult();
+    }
 }

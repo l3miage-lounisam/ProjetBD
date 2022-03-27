@@ -3,11 +3,15 @@ package l3miage.model;
 import javax.persistence.*;
 import java.util.*;
 
+import static org.hibernate.internal.util.collections.CollectionHelper.isEmpty;
+
 /**
  * 
  */
 @NamedQueries({
-        @NamedQuery(name = "Location.findAll", query = "select l from Location l")
+        @NamedQuery(name = "Location.findAll", query = "select l from Location l"),
+        @NamedQuery(name = "Location.findByNonAbonne_CodeSecretAndDureeLocIsNull", query = "select l from Location l where l.nonAbonne.codeSecret = :codeSecret and l.dureeLoc is null"),
+        @NamedQuery(name = "Location.countByIdAndTrajets_StationArriveIsNull", query = "select count(trajets) from Location l inner join l.trajets trajets where l.id = :id and trajets.stationArrive is null")
 })
 @Entity
 public class Location {
@@ -66,9 +70,18 @@ public class Location {
     /**
      * @return
      */
-    public Double calculPrix() {
-        // TODO implement here
-        return null;
+    public void calculPrix() {
+        float sommePrix = 0;
+        int sommeDuree = 0;
+        if(!isEmpty(trajets)) {
+            for (Trajet trajet : trajets) {
+                sommePrix += trajet.getPrix();
+                sommeDuree += trajet.getDuree();
+
+            }
+        }
+        setPrix(sommePrix);
+        setDureeLoc(sommeDuree);
     }
 
     public Integer getDureeLoc() {

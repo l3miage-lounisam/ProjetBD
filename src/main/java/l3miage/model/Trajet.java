@@ -8,7 +8,8 @@ import java.util.*;
  */
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "Trajet.findAll", query = "select t from Trajet t")
+        @NamedQuery(name = "Trajet.findAll", query = "select t from Trajet t"),
+        @NamedQuery(name = "Trajet.findByVelo_IdAndDateFinTrajetIsNull", query = "select t from Trajet t where t.velo.id = :id and t.dateFinTrajet is null")
 })
 public class Trajet {
 
@@ -16,7 +17,6 @@ public class Trajet {
      * Default constructor
      */
 public Trajet(){
-    this.dateDebutTrajet = new Date();
 }
 
     @Id
@@ -68,7 +68,7 @@ public Trajet(){
     public Velo velo;
 
     public void calculDuree(){
-       this.duree = Math.toIntExact((dateFinTrajet.getTime() - dateDebutTrajet.getTime()) /1000 /60);
+       this.duree = Math.toIntExact((dateFinTrajet.getTime() - dateDebutTrajet.getTime()) /1000 );
     }
 
 
@@ -102,30 +102,30 @@ public Trajet(){
 
     public void setDateFinTrajet(Date dateFinTrajet) {
         this.dateFinTrajet = dateFinTrajet;
+
     }
 
     public Integer getDuree() {
         return duree;
     }
 
-    public void setDuree(Integer duree) {
-        this.duree = duree;
-    }
 
     public Float getPrix() {
         return prix;
     }
 
-    public void setPrix(Float prix) {
-        this.prix = prix;
-    }
 
     public void setStationDepart(Station stationDepart) {
         this.stationDepart = stationDepart;
+        this.dateDebutTrajet = new Date();
+
     }
 
     public void setStationArrive(Station stationArrive) {
         this.stationArrive = stationArrive;
+        this.dateFinTrajet = new Date();
+        calculDuree();
+        calculPrixTrajet();
     }
 
     public Velo getVelo() {
@@ -140,7 +140,7 @@ public Trajet(){
      * 
      */
 
-    public void CalculPrixTrajet() {
+    public void calculPrixTrajet() {
         this.prix = velo.modele.getCoutHoraire()*duree;
 
         // TODO implement here
