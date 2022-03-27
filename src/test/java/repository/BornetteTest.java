@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BornetteTest extends Base{
     BornetteRepository bornetteRepository;
@@ -156,7 +156,7 @@ public class BornetteTest extends Base{
 
         bornetteRepository.retraitVeloBornette(bornette1.getId());
         Bornette pBornette1 = bornetteRepository.findById(bornette1.getId());
-        assertTrue(pBornette1.getVelo()==null);
+        assertNull(pBornette1.getVelo());
     }
     @Test
     void testRenduVelo(){
@@ -191,6 +191,6 @@ public class BornetteTest extends Base{
 
         bornetteRepository.renduVeloBornette(v2,bornette2.getId());
         Bornette pBornette2 = bornetteRepository.findById(bornette2.getId());
-        assertTrue(pBornette2.getVelo().getId()==v2.getId());
+        assertSame(pBornette2.getVelo().getId(), v2.getId());
     }
 }

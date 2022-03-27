@@ -1,6 +1,7 @@
 package l3miage.model;
 
 import javax.persistence.*;
+import java.util.Random;
 
 /**
  * 
@@ -17,13 +18,15 @@ public abstract class Client {
      * Default constructor
      */
     public Client() {
+        Random r = new Random();
+        setCodeSecret(r.nextInt(10000));
     }
 
     /**
      * 
      */
     @Column(nullable = false)
-    private Integer numeroCB;
+    private Long numeroCB;
 
     /**
      * 
@@ -39,11 +42,11 @@ public abstract class Client {
         this.id = id;
     }
 
-    public Integer getNumeroCB() {
+    public Long getNumeroCB() {
         return numeroCB;
     }
 
-    public void setNumeroCB(Integer numeroCB) {
+    public void setNumeroCB(Long numeroCB) {
         this.numeroCB = numeroCB;
     }
 

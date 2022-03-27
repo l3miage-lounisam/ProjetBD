@@ -20,7 +20,9 @@ public class Abonne extends Client {
     /**
      * Default constructor
      */
-
+    public Abonne() {
+        dateDebutAb = new Date();
+    }
 
     /**
      * 
