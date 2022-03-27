@@ -14,9 +14,12 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+// Cette classe permet de générer tout ce que nous avons besoin pour que notre application fonctionne
 
 public class Generation {
     private static final Faker FAKER = Faker.instance(new Random(74));
+
+    // Créer une station
 
     public static Station createStation() {
         Station station = new Station();
@@ -24,6 +27,7 @@ public class Generation {
         return station;
     }
 
+    // Créer une bornette
 
     public static Bornette createBornette(Station station,Velo velo) {
        Bornette bornette = new Bornette();
@@ -33,6 +37,7 @@ public class Generation {
            bornette.setVelo(velo);
        return bornette;
     }
+    // Créer un vélo
 
     public static Velo createVelo(Modele modele) {
         Random random = new Random();
@@ -46,6 +51,8 @@ public class Generation {
         velo.setPuce(FAKER.code().asin());
         return velo;
     }
+    // Créer un modèle de vélo
+
     public static Modele createModele(String nom,Float prix) {
         Modele modele = new Modele();
         modele.setNom(nom);
@@ -53,6 +60,8 @@ public class Generation {
 
         return modele;
     }
+    // Créer une location pour un non abonné
+
     public static Location createLocationNonAbonne(NonAbonne nonAbonne) {
         Location location = new Location();
         location.setNonAbonne(nonAbonne);
@@ -60,18 +69,24 @@ public class Generation {
 
         return location;
     }
+
+    // Créer une location pour un abonné
+
     public static Location createLocationAbonne(Abonne abonne) {
         Location location = new Location();
         location.setAbonne(abonne);
 
         return location;
     }
+    // Créer une trajet
 
     public static Trajet createTrajet(Location location, Station stationDepart) {
         Trajet trajet = new Trajet();
         trajet.setStationDepart(stationDepart);
         return trajet;
     }
+    // Créer une définition(vplus-vmoins) pour une station
+
     public static DefinitionStation createDefinitionStation(Station station, Integer heure, Definition definition) {
         DefinitionStation definitionStation = new DefinitionStation();
         definitionStation.setStation(station);
@@ -80,6 +95,7 @@ public class Generation {
     return definitionStation;
     }
 
+    // Créer un abonné
     public static Abonne createAbonne(String nom,String prenom,Long cb,Sexe sexe) {
         Abonne abonne = new Abonne();
         abonne.setNom(nom);
@@ -91,6 +107,7 @@ public class Generation {
         return abonne;
     }
 
+    //crée un nonabonne
     public static NonAbonne createNonAbonne(Long cb) {
         NonAbonne nonAbonne = new NonAbonne();
 
@@ -145,9 +162,9 @@ public class Generation {
         for (int i = 0; i < 4; i++) {
            Station station = createStation();
            stationRepository.save(station);
-            for (int j = 0; j < 5; j++) {
-                velo = createVelo(modeles.get(random.nextInt(3)));
-                if(j<3)
+            for (int j = 0; j < 8; j++) {
+                velo = createVelo(modeles.get(random.nextInt(4)));
+                if(j<6)
                  bornette = createBornette(station,velo);
                 else
                     bornette = createBornette(station,null);
