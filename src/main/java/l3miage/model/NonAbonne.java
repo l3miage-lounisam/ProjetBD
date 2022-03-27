@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.util.*;
 
 /**
+ * création de la classe NonAbonne qui hérite de la classe Client, chaque client NonAbonne
+ * possede un numeroCB et un codeScret
  * 
  */
 @Entity
