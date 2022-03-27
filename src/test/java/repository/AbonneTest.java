@@ -24,6 +24,9 @@ public class AbonneTest extends Base {
         }
     }
 
+    /* fonction pour enregistrer un abonné dans la bdd
+       cet abonné prend des valeurs par défaut 
+    */
     @Test
     void shouldSaveAbonne(){
         Abonne abonne = new Abonne();
