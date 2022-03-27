@@ -6,8 +6,12 @@ import java.util.*;
 import static org.hibernate.internal.util.collections.CollectionHelper.isEmpty;
 
 /**
+ * Creation de la classe location, qui gére la location d'un velo par un abonné ou un NonAbonne
+ * chaque location a une duree de location et un prix.
+ * le prix est calculer par rapport a la duree du trajet et le trajet(un trajet definit par un point de départ et un point d'arriver) a effectuer  
  * 
  */
+//mapping
 @NamedQueries({
         @NamedQuery(name = "Location.findAll", query = "select l from Location l"),
         @NamedQuery(name = "Location.findByNonAbonne_CodeSecretAndDureeLocIsNull", query = "select l from Location l where l.nonAbonne.codeSecret = :codeSecret and l.dureeLoc is null"),
@@ -56,6 +60,7 @@ public class Location {
     @ManyToOne
     public NonAbonne nonAbonne;
 
+    //l'abonné effectuant la location
     public Abonne getAbonne() {
         return abonne;
     }
@@ -68,12 +73,15 @@ public class Location {
         this.id = id;
     }
 
+    //Le trajet que dois faire l'abonné
     public void addTrajet(Trajet trajet){
         this.trajets.add(trajet);
     }
     /**
      * @return
      */
+    
+    //calcul du prix de la location par rapport au trajet et la duree du trajet
     public void calculPrix() {
         float sommePrix = 0;
         int sommeDuree = 0;
@@ -88,6 +96,7 @@ public class Location {
         setDureeLoc(sommeDuree);
     }
 
+    //La duree d'une location
     public Integer getDureeLoc() {
         return dureeLoc;
     }
@@ -96,6 +105,7 @@ public class Location {
         this.dureeLoc = dureeLoc;
     }
 
+    //le prix de la location
     public Float getPrix() {
         return prix;
     }
@@ -104,6 +114,7 @@ public class Location {
         this.prix = prix;
     }
 
+    //la liste des trajets
     public List<Trajet> getTrajets() {
         return trajets;
     }
@@ -112,6 +123,7 @@ public class Location {
         this.trajets = trajets;
     }
 
+    
     public void setAbonne(Abonne abonne) {
         this.abonne = abonne;
     }
