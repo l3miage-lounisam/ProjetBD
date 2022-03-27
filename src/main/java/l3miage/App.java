@@ -17,6 +17,7 @@ import java.util.Scanner;
 
 import static l3miage.Application.Generation.setup;
 
+//class main application
 public class App {
 
     static EntityManager entityManager =  Persistence.createEntityManagerFactory("APP").createEntityManager();
