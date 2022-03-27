@@ -4,12 +4,12 @@ import java.util.*;
 import javax.persistence.*;
 
 /**
- * 
+ * création d'une classe abonne qui hérite de client, un abonné  est identifier par son non, prenom,dateN,sexe
+ * adresse,dateDebutAb,credit
  */
 @Entity
 @NamedQueries({
         @NamedQuery(name = "Abonne.findAll", query = "select a from Abonne a"),
-        @NamedQuery(name = "Abonne.findByCodeSecret", query = "select a from Abonne a where a.codeSecret = :codeSecret")
 })
 public class Abonne extends Client {
 
@@ -75,6 +75,7 @@ public class Abonne extends Client {
         return id;
     }
 
+    //le Nom d'un abonnée
     public String getNom() {
         return nom;
     }
@@ -83,6 +84,7 @@ public class Abonne extends Client {
         this.nom = nom;
     }
 
+    //le prénom d'un abonnée
     public String getPrenom() {
         return prenom;
     }
@@ -91,6 +93,7 @@ public class Abonne extends Client {
         this.prenom = prenom;
     }
 
+    //la date de naissance d'un abonné
     public Date getDateN() {
         return dateN;
     }
@@ -99,6 +102,7 @@ public class Abonne extends Client {
         this.dateN = dateN;
     }
 
+    //le sexe d'un abonée
     public Sexe getSexe() {
         return sexe;
     }
@@ -107,6 +111,7 @@ public class Abonne extends Client {
         this.sexe = sexe;
     }
 
+    //l'adresse d'un abonnée 
     public String getAdresse() {
         return adresse;
     }
@@ -114,7 +119,7 @@ public class Abonne extends Client {
     public void setAdresse(String adresse) {
         this.adresse = adresse;
     }
-
+    //Date debut d'un abonnement 
     public Date getDateDebutAb() {
         return dateDebutAb;
     }
@@ -123,6 +128,7 @@ public class Abonne extends Client {
         this.dateDebutAb = dateDebutAb;
     }
 
+    //le prix d'un abonnement pour une location par rappot a la durée de la location
     public Integer getCreditTemps() {
         return creditTemps;
     }
@@ -131,6 +137,7 @@ public class Abonne extends Client {
         this.creditTemps = creditTemps;
     }
 
+    // la liste des loctions d'un abonnée 
     public List<Location> getLocations() {
         return locations;
     }
