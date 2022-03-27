@@ -8,7 +8,9 @@ import java.util.*;
  */
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "NonAbonne.findAll", query = "select n from NonAbonne n")
+        @NamedQuery(name = "NonAbonne.findAll", query = "select n from NonAbonne n"),
+        @NamedQuery(name = "NonAbonne.findByCodeSecret", query = "select n from NonAbonne n where n.codeSecret = :codeSecret"),
+        @NamedQuery(name = "NonAbonne.findAllCodeSecret", query = "select n.codeSecret from NonAbonne n"),
 })
 public class NonAbonne extends Client {
     @Id

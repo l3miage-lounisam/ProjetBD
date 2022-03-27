@@ -37,12 +37,12 @@ public class LocationRepositoryImpl extends BaseRepositoryImpl implements Locati
     }
 
     @Override
-    public Location findLocationNonTermineByAbonneCodeSecret(Long codesecret){
-        return (Location) entityManager.createNamedQuery("Location.findByAbonne_CodeSecretAndDureeLocIsNull").setParameter("codesecret",codesecret).getSingleResult();
+    public Location findLocationNonTermineByAbonneCodeSecret(Integer codesecret){
+        return (Location) entityManager.createNamedQuery("Location.findByAbonne_CodeSecretAndDureeLocIsNull").setParameter("codeSecret",codesecret).getSingleResult();
     }
     @Override
-    public Location findLocationNonTermineByNonAbonneCodeSecret(Long codesecret){
-        return (Location) entityManager.createNamedQuery("Location.findByNonAbonne_CodeSecretAndDureeLocIsNull").setParameter("codesecret",codesecret).getSingleResult();
+    public Location findLocationNonTermineByNonAbonneCodeSecret(Integer codesecret){
+        return (Location) entityManager.createNamedQuery("Location.findByNonAbonne_CodeSecretAndDureeLocIsNull").setParameter("codeSecret",codesecret).getSingleResult();
     }
     @Override
     public boolean isLocationTermine(Long idlocation){

@@ -24,7 +24,7 @@ public class App {
     static Utilisation utilisation = new Utilisation(entityManager,daoFactory);
     public static void main(String[] args) {
 
-      try {
+
             /* Menu utilisateur */
             Station station;
             System.out.println("Bienvenue sur l'application VePick !");
@@ -74,9 +74,7 @@ public class App {
 
 
 
-        } catch (Exception e) {
-            //TODO: handle exception
-        }
+
 
     }
 

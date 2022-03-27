@@ -11,7 +11,8 @@ import static org.hibernate.internal.util.collections.CollectionHelper.isEmpty;
 @NamedQueries({
         @NamedQuery(name = "Location.findAll", query = "select l from Location l"),
         @NamedQuery(name = "Location.findByNonAbonne_CodeSecretAndDureeLocIsNull", query = "select l from Location l where l.nonAbonne.codeSecret = :codeSecret and l.dureeLoc is null"),
-        @NamedQuery(name = "Location.countByIdAndTrajets_StationArriveIsNull", query = "select count(trajets) from Location l inner join l.trajets trajets where l.id = :id and trajets.stationArrive is null")
+        @NamedQuery(name = "Location.countByIdAndTrajets_StationArriveIsNull", query = "select count(trajets) from Location l inner join l.trajets trajets where l.id = :id and trajets.stationArrive is null"),
+        @NamedQuery(name = "Location.findByAbonne_CodeSecretAndDureeLocIsNull", query = "select l from Location l where l.abonne.codeSecret = :codeSecret and l.dureeLoc is null")
 })
 @Entity
 public class Location {

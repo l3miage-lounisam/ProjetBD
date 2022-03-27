@@ -44,7 +44,7 @@ public class Generation {
         Velo velo = new Velo();
         velo.setModele(modele);
         velo.setDateMiseService(FAKER.date().between(Date.valueOf("2015-01-01"),Date.valueOf("2022-01-01")));
-        if(random.nextInt(4)==2)
+        if(random.nextInt(10)==2)
             velo.setEtat(Etat.hs);
         else
             velo.setEtat(Etat.ok);
@@ -80,9 +80,10 @@ public class Generation {
     }
     // Créer une trajet
 
-    public static Trajet createTrajet(Location location, Station stationDepart) {
+    public static Trajet createTrajet(Station stationDepart,Velo velo) {
         Trajet trajet = new Trajet();
         trajet.setStationDepart(stationDepart);
+        trajet.setVelo(velo);
         return trajet;
     }
     // Créer une définition(vplus-vmoins) pour une station
@@ -137,10 +138,10 @@ public class Generation {
 
         entityManager.getTransaction().begin();
 
-        Modele m1 = createModele("VTT",10F);
-        Modele m2 = createModele("Piste",12F);
-        Modele m3 = createModele("Enfant",5F);
-        Modele m4 = createModele("Electrique",20F);
+        Modele m1 = createModele("VTT",1F);
+        Modele m2 = createModele("Piste",1.2F);
+        Modele m3 = createModele("Enfant",0.5F);
+        Modele m4 = createModele("Electrique",2F);
 
         modeleRepository.save(m1);
         modeleRepository.save(m2);

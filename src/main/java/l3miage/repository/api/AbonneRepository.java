@@ -10,5 +10,5 @@ import java.util.List;
 public interface AbonneRepository extends Repository<Abonne, Long> {
 
 
-
+    Abonne findAbonneByCodeSecret(Integer codesecret);
 }

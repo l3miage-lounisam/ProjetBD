@@ -32,6 +32,19 @@ public class AbonneRepositoryImpl extends BaseRepositoryImpl implements AbonneRe
         return entityManager.createNamedQuery("Abonne.findAll").getResultList();
     }
 
-
+    @Override
+    public Abonne findAbonneByCodeSecret(Integer codesecret) {
+        Boolean test = false;
+         List<Integer> codes = entityManager.createNamedQuery("Abonne.findAllCodeSecret").getResultList();
+        for (Integer code:
+             codes) {
+            if((code-codesecret)==0)
+                test=true;
+        }
+        if(test)
+            return (Abonne) entityManager.createNamedQuery("Abonne.findByCodeSecret").setParameter("codeSecret",codesecret).getSingleResult();
+        else
+            return null;
+    }
 
 }

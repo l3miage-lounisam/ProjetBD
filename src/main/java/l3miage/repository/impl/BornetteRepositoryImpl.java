@@ -54,6 +54,7 @@ public class BornetteRepositoryImpl extends BaseRepositoryImpl implements Bornet
         Velo velo = bornette.getVelo();
         bornette.removeVelo();
         save(bornette);
+        entityManager.persist(velo);
         entityManager.getTransaction().commit();
         return velo;
         //  entityManager.createNamedQuery("Bornette.retraitVelo").setParameter("id",idBornette).executeUpdate();
